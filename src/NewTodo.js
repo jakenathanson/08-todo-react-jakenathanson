@@ -17,16 +17,17 @@ var styles2 = {
 var styles3 = {
   marginBottom: '30px',
 };
-
+//onSubmit={this.props.addTodo} onChange={this.props.onChange} input={this.state.input}
+//onClick={this.props.addTodo}
 class NewTodo extends Component {
   render() {
     return (
       <span>
       <div class="card-body" style={styles3} >
-      <form>
-      <input type="text" class="form-control" id="note" placeholder="New ToDo" style={styles}></input>
+      <form onSubmit={this.props.addTodo}>
+      <input type="text" onChange={this.props.onChange} value={this.props.input} class="form-control" id="note" placeholder="New ToDo" style={styles}></input>
       <input type="submit" style={styles1}></input>
-      <button type="button" style={styles2} class="btn btn-outline-primary">Add</button>
+      <button onClick={this.props.addTodo} type="button" style={styles2} class="btn btn-outline-primary">Add</button>
       </form>
       </div>
       </span>
