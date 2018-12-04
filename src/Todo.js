@@ -24,9 +24,9 @@ class Todo extends Component {
 
     }
     return (
-  <li class="list-group-item" style={complete}>
+  <li class="list-group-item" style={complete} id={this.props.id}>
   {this.props.text}
-  <span><input type="button" style={styles} class="btn btn-outline-danger btn-sm" value="Delete" ></input></span>
+  <span><input type="button" style={styles} class="btn btn-outline-danger btn-sm" id={"D" + this.props.id} onClick={this.props.delete} value="Delete" ></input></span>
   <span><input type="button" style={styles1} class="btn btn-outline-success btn-sm" value="Check"></input></span>
   </li>
     );

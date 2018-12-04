@@ -17,6 +17,7 @@ class App extends Component {
 }
 this.addTodo = this.addTodo.bind(this);
 this.onChange = this.onChange.bind(this);
+this.delete = this.delete.bind(this);
 
       // stuff here
     }
@@ -41,6 +42,47 @@ xhttp.send();
 
 
     }
+
+delete(event) {
+  var self = this;
+  var pass = event.target.id;
+  var real = pass.substring(1);
+  console.log(real);
+  var xhttp3 = new XMLHttpRequest();
+
+// Response handler
+xhttp3.onreadystatechange = function() {
+
+    // Wait for readyState = 4 & 200 response
+    if (this.readyState == 4 && this.status == 200) {
+
+      const remainingTodos = self.state.todos.filter((todo) => {
+        //console.log(todo);
+  // Looping through all todos, if the id of the current todo DOES NOT equal the id of the todo we want to delete, keep it
+  if (todo.id !== real) {
+    return todo;
+  }
+  });
+  console.log(remainingTodos);
+  self.setState({todos: remainingTodos});
+
+        // parse JSON response
+        //console.log(todo);
+
+    } else if (this.readyState == 4) {
+
+        // this.status !== 200, error from server
+        console.log(this.responseText);
+
+    }
+};
+var http3link = "https://api.kraigh.net/todos/"+ real;
+xhttp3.open("DELETE", http3link, true);
+xhttp3.setRequestHeader("Content-type", "application/json");
+xhttp3.setRequestHeader("x-api-key", "c5419f366b3a56b4e7a461d12362410c9a9f83f45e77ae1ce916ebe9b3db0230");
+xhttp3.send();
+
+}
 
 onChange(event) {
   // Set the state to the value of the input
@@ -72,7 +114,7 @@ if (this.readyState == 4 && this.status == 200) {
 
   // parse JSON response
   var todo = JSON.parse(this.responseText);
-  console.log(todo);
+  //console.log(todo);
 
   self.setState({
      todos: [...self.state.todos, JSON.parse(this.responseText)]
@@ -81,7 +123,7 @@ if (this.readyState == 4 && this.status == 200) {
 } else if (this.readyState == 4) {
 
   // this.status !== 200, error from server
-  console.log(this.responseText);
+  //console.log(this.responseText);
 
 }
 };
@@ -110,7 +152,7 @@ xhttp2.send(JSON.stringify(data));
 
    {this.state.todos.map((todo) =>
      <Todo key={todo.id} id={todo.id} completed={todo.completed}
-       text={todo.text} removeDeletedTodo={this.removeDeletedTodo}/>
+       text={todo.text} delete={this.delete} update={this.update} removeDeletedTodo={this.removeDeletedTodo}/>
    )}
 
   </ul>
