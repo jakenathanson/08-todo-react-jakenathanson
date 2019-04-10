@@ -2,4 +2,4 @@ CSE 204 Intro React App
 
 ToDo React Frontend
 
- https://wustlcse204.github.io/08-todo-react-jakenathanson/
+ https://jakenathanson.github.io/08-todo-react-jakenathanson/
